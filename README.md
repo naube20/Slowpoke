@@ -3,7 +3,7 @@
 
 Items Complete:
 
-Orthogonal Camera - Control the camera using W, A, S, and D.
+Orthogonal Camera - Control the camera using mouse-drag, W, A, S, and D.
 
 Avatar - Move one of the game-objects using directional keys.
 
