@@ -1,0 +1,24 @@
+Shader.source[document.currentScript.src.split('js/shaders/')[1]] = `#version 300 es 
+  precision highp float;
+  in vec3 worldNormal;
+  in vec4 worldPosition;  
+
+  out vec4 fragmentColor;
+  in vec2 texCoord; // passed from VS
+
+  // we need to bind texture to this
+  uniform sampler2D colorTexture;
+  uniform samplerCube envmapTexture;
+  uniform struct{
+  	vec3 position;
+  } camera;
+
+  void main(void) {
+  	vec3 normal = normalize(worldNormal);
+  	vec3 position = worldPosition.xyz / worldPosition.w; 
+  	vec3 viewDir = normalize(camera.position);
+    fragmentColor = texture( envmapTexture, reflect(-viewDir, normal));
+
+  }
+
+`;

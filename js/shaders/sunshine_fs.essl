@@ -1,0 +1,39 @@
+Shader.source[document.currentScript.src.split('js/shaders/')[1]] = `#version 300 es 
+  precision highp float;
+
+  out vec4 fragmentColor;
+  in vec2 texCoord; // passed from VS
+  in vec3 worldNormal;
+  in vec4 worldPosition; 
+  in vec3 modelPosition; 
+  // we need to bind texture to this
+  uniform sampler2D colorTexture;
+
+  uniform struct  {
+    vec3 position;
+  } camera;
+
+  uniform struct  {
+    vec4 position[8];
+    vec4 powerDensity[8];
+  } lighting;
+
+    uniform struct  {
+    float shininess[8];
+    vec4 color[8];
+  } material;
+
+  void main(void) {
+  	vec3 normal = normalize(worldNormal);
+  	vec3 position = worldPosition.xyz / worldPosition.w; 
+  	vec3 viewDir = normalize(camera.position - position);
+    vec3 lightDir = normalize(lighting.position[1].xyz - worldPosition.xyz * lighting.position[0].w);
+    vec3 halfway = normalize(lightDir + viewDir);
+    fragmentColor = (lighting.powerDensity[1] * texture(colorTexture, texCoord) * dot(normal, lighting.position[1].xyz))/2.0;
+    fragmentColor += (lighting.powerDensity[1] * material.color[1] * pow(dot(normal, halfway), material.shininess[1]))/2.0;
+
+
+    fragmentColor.a = 1.0;
+  }
+
+`;
