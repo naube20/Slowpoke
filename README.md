@@ -15,7 +15,7 @@ Shining - Implemented Phong-Blinn shading on at least one game-object.
 
 Spotlight - Implemented a point-like light source which effects at least one game-object.
 
-Procedural Solid Texture - Generates a texture using randomly selected imputs.
+Procedural Solid Texture - Generates a texture using randomly selected inputs.
 
 Ground Zero - Created an infinite ground plane.
 
